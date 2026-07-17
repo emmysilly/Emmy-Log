@@ -2122,6 +2122,7 @@ async function onAuthed() {
   protectiveMeasures= APP.protectiveMeasures || [];
   spreadSteps       = APP.spreadSteps       || [];
   researchArticles  = APP.researchArticles  || [];
+  commonSymptoms    = APP.commonSymptoms    || [];
   // Build the content-driven sections now that data is present
   buildEnvRisks();
   buildProtectiveMeasures();
@@ -3457,13 +3458,7 @@ function closeBrainModal() {
 // ══════════════════════════════════════════
 // RECORD EPISODE MODAL
 // ══════════════════════════════════════════
-const commonSymptoms = [
-  'Blank stare', 'Cognitive slowing', 'Unable to read', 'Memory difficulty',
-  'Legs numb / pins & needles', 'Arm numbness', 'Left shoulder twitching',
-  'Head turning / flinching', 'Felt heavy / drunk', 'Unresponsive',
-  'Volume amplification', 'Sudden anxiety', 'Focal headache (right side)',
-  'Speech scrambled', 'Felt off / disoriented', 'Nerve pain', 'Shooting leg pain',
-];
+let commonSymptoms = [];  // hydrated from app_content.doc after auth
 
 let selectedSymptoms = [];
 let selectedSeverity = '';
@@ -3471,6 +3466,7 @@ let selectedSeverity = '';
 function buildSymptomCheckboxes() {
   const container = document.getElementById('symptomCheckboxes');
   if(!container) return;
+  container.innerHTML = '';
   commonSymptoms.forEach(s => {
     const btn = document.createElement('button');
     btn.textContent = s;
