@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Local Claude Code settings (per-machine)
+.claude/settings.local.json
+
+# Other local AI tool config
+.codex/
