@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Emmy Log — Focal Epilepsy Documentation</title>
+<title>Epilepsy Log — Focal Epilepsy Documentation</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -1339,7 +1339,7 @@ body.mode-light .risk-result.very-high { background:#fef2f2; border-color:#fca5a
 <div id="authGate" style="position:fixed;inset:0;z-index:5000;background:var(--bg,#07060f);display:flex;align-items:center;justify-content:center;padding:24px;">
   <div style="width:100%;max-width:380px;background:var(--bg2,#0e0c1a);border:1px solid var(--border2,#2a2845);border-radius:18px;padding:32px 26px;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
     <div style="text-align:center;margin-bottom:22px;">
-      <div style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--text,#e8e4f8);"><span style="color:var(--accent,#60a5fa)">Emmy</span> Log</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--text,#e8e4f8);"><span style="color:var(--accent,#60a5fa)">Epilepsy</span> Log</div>
       <div style="font-size:0.74rem;color:var(--text3,#6a6088);letter-spacing:0.04em;margin-top:4px;">Focal Epilepsy Documentation</div>
     </div>
     <label style="display:block;font-size:0.72rem;color:var(--text3,#6a6088);margin-bottom:5px;">Email</label>
@@ -1353,11 +1353,89 @@ body.mode-light .risk-result.very-high { background:#fef2f2; border-color:#fca5a
   </div>
 </div>
 
+<!-- ============================================================
+     PUBLIC LANDING PAGE — shown before the login screen.
+     Additive overlay; does not alter the app UI beneath it.
+     ============================================================ -->
+<style>
+  #landingPage { position: fixed; inset: 0; z-index: 5100; overflow-y: auto; background: var(--bg, #07060f); }
+  .lp-wrap { max-width: 860px; margin: 0 auto; padding: 60px 22px 84px; }
+  .lp-hero { text-align: center; margin-bottom: 40px; }
+  .lp-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.4rem, 6vw, 3.7rem); color: var(--text); margin: 0 0 12px; line-height: 1.05; }
+  .lp-title span { color: var(--accent); font-style: italic; }
+  .lp-tag { color: var(--text2); font-size: 1.03rem; max-width: 640px; margin: 0 auto; line-height: 1.6; }
+  .lp-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 30px 0 6px; }
+  .lp-btn { font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; padding: 12px 24px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: opacity .15s ease, background .15s ease, border-color .15s ease, color .15s ease; }
+  .lp-btn:active { transform: translateY(1px); }
+  .lp-primary { background: var(--accent); color: #0a0010; }
+  .lp-primary:hover { opacity: .9; }
+  .lp-ghost { background: var(--bg3); color: var(--text); border-color: var(--border2); }
+  .lp-ghost:hover { background: var(--bg2); }
+  .lp-outline { background: transparent; color: var(--text); border-color: var(--border2); }
+  .lp-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .lp-note { color: var(--text3); font-size: 0.82rem; margin-top: 14px; }
+  .lp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin: 40px 0; }
+  .lp-feature { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .lp-feature .ico { font-size: 1.5rem; }
+  .lp-feature h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; margin: 10px 0 6px; color: var(--text); }
+  .lp-feature p { font-size: 0.82rem; color: var(--text3); margin: 0; line-height: 1.55; }
+  .lp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 20px; }
+  .lp-card h3 { font-family: 'Playfair Display', serif; margin: 0 0 8px; color: var(--text); }
+  .lp-card p { color: var(--text2); font-size: 0.9rem; margin: 0; line-height: 1.6; }
+  .lp-disclaimer { background: #2a1a1a55; border: 1px solid #7a3a3a55; border-radius: 12px; padding: 16px 18px; font-size: 0.82rem; color: #e8c4c4; line-height: 1.6; }
+  .lp-disclaimer strong { color: #ffb0b0; }
+</style>
+<div id="landingPage">
+  <div class="lp-wrap">
+    <div class="lp-hero">
+      <h1 class="lp-title"><span>Epilepsy</span> Log</h1>
+      <p class="lp-tag">A personal medical documentation tool for people with focal epilepsy — track episodes,
+        identify triggers, map affected brain regions, and correlate symptoms with your menstrual cycle.</p>
+      <div class="lp-cta">
+        <button class="lp-btn lp-primary" onclick="startDemo()">Try Demo</button>
+        <button class="lp-btn lp-ghost" onclick="enterFromLanding()">Log In</button>
+        <button class="lp-btn lp-outline" onclick="enterFromLanding()">Sign Up</button>
+      </div>
+      <div class="lp-note">The demo loads fictional example data — no account needed.</div>
+    </div>
+
+    <div class="lp-grid">
+      <div class="lp-feature"><div class="ico">📋</div><h3>Episode Log</h3><p>Record every focal seizure with time, environment, symptoms, severity, and cycle day — building a searchable, chronological history.</p></div>
+      <div class="lp-feature"><div class="ico">⚠️</div><h3>Risk Assessment</h3><p>Answer a quick questionnaire to gauge your risk for a given situation, based on your documented triggers and patterns.</p></div>
+      <div class="lp-feature"><div class="ico">🌙</div><h3>Cycle &amp; Hormones</h3><p>Track episodes against your menstrual cycle and hormone curves to surface catamenial (hormone-linked) patterns.</p></div>
+      <div class="lp-feature"><div class="ico">🧠</div><h3>Brain Theory</h3><p>Map your symptoms to the brain regions involved and see how a seizure spreads from its origin.</p></div>
+      <div class="lp-feature"><div class="ico">🛡️</div><h3>Protective Measures</h3><p>Evidence-based interventions with linked studies, graded by strength of evidence and relevance to you.</p></div>
+      <div class="lp-feature"><div class="ico">📖</div><h3>Research</h3><p>A library of studies relevant to your seizure type, catamenial pattern, and documented triggers.</p></div>
+    </div>
+
+    <div class="lp-card">
+      <h3>Who it's for</h3>
+      <p>Anyone living with focal (partial) epilepsy who wants to document their episodes carefully — to spot
+        patterns, prepare for neurology appointments, and understand their own condition. Your data is private
+        to your account and never shared.</p>
+    </div>
+
+    <div class="lp-disclaimer">
+      <strong>Disclaimer:</strong> Epilepsy Log is a personal research and documentation tool only. It is
+      <strong>not</strong> a medical device, does not provide a diagnosis, and does not replace professional
+      medical advice, diagnosis, or treatment. Always consult a qualified neurologist or healthcare provider
+      about your symptoms and care. In an emergency, call your local emergency number.
+    </div>
+  </div>
+</div>
+
+<!-- Demo Mode banner (fixed bottom bar; shown only while the demo is active) -->
+<div id="demoBanner" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:5200;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:10px 16px;background:linear-gradient(90deg,#7c3aed,#f472b6);color:#0a0010;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:700;box-shadow:0 -6px 24px rgba(0,0,0,0.35);">
+  <span>🧪 Demo Mode — everything here is fictional example data (not a real person).</span>
+  <button onclick="enterFromLanding()" style="background:rgba(10,0,16,0.15);border:1px solid rgba(10,0,16,0.3);color:#0a0010;font-family:'Inter',sans-serif;font-size:0.76rem;font-weight:700;padding:5px 12px;border-radius:8px;cursor:pointer;">Sign up</button>
+  <button onclick="exitDemo()" style="background:rgba(10,0,16,0.15);border:1px solid rgba(10,0,16,0.3);color:#0a0010;font-family:'Inter',sans-serif;font-size:0.76rem;font-weight:700;padding:5px 12px;border-radius:8px;cursor:pointer;">Exit demo</button>
+</div>
+
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <header class="site-header">
   <div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px 28px 0;">
     <div class="logo" style="padding:0;margin:0;">
-      <h1><span>Emmy</span> Log</h1>
+      <h1><span>Epilepsy</span> Log</h1>
       <p>Focal Epilepsy Documentation</p>
     </div>
     <!-- Hamburger + Theme row -->
@@ -1822,7 +1900,7 @@ body.mode-light .risk-result.very-high { background:#fef2f2; border-color:#fca5a
   <!-- Brain diagram -->
   <div class="brain-diagram-wrap">
     <div style="font-size:0.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px;font-weight:600">Right Hemisphere · Lateral View · Affected Regions</div>
-    <svg viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg">
+    <svg id="brainDiagramSvg" viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="brainGrad" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#1e1c30"/>
@@ -3171,14 +3249,22 @@ let spreadSteps = [];  // hydrated from app_content.doc after auth
 
 // Brain SVG for each step — highlights only active regions
 function brainSVG(activeRegions, color) {
-  const regions = {
-    dlpfc:    { cx:165, cy:100, rx:52, ry:32, fill: activeRegions.includes('dlpfc')    ? '#c084fc' : '#c084fc33', stroke: activeRegions.includes('dlpfc')    ? '#c084fc' : '#c084fc33', label:'DLPFC', ly:95, opacity: activeRegions.includes('dlpfc')    ? 1 : 0.3 },
-    premotor: { cx:205, cy:72,  rx:28, ry:18, fill: activeRegions.includes('premotor') ? '#f472b6' : '#f472b633', stroke: activeRegions.includes('premotor') ? '#f472b6' : '#f472b633', label:'Premotor', ly:68, opacity: activeRegions.includes('premotor') ? 1 : 0.25 },
-    sma:      { cx:248, cy:62,  rx:38, ry:20, fill: activeRegions.includes('sma')      ? '#818cf8' : '#818cf833', stroke: activeRegions.includes('sma')      ? '#818cf8' : '#818cf833', label:'SMA', ly:58, opacity: activeRegions.includes('sma')      ? 1 : 0.25 },
-    motor:    { cx:290, cy:58,  rx:30, ry:18, fill: activeRegions.includes('motor')    ? '#fb923c' : '#fb923c33', stroke: activeRegions.includes('motor')    ? '#fb923c' : '#fb923c33', label:'Motor', ly:54, opacity: activeRegions.includes('motor')    ? 1 : 0.25 },
-    cingulate:{ cx:128, cy:145, rx:30, ry:18, fill: activeRegions.includes('cingulate')? '#4ade80' : '#4ade8033', stroke: activeRegions.includes('cingulate')? '#4ade80' : '#4ade8033', label:'Cingulate', ly:141, opacity: activeRegions.includes('cingulate')? 1 : 0.25 },
-    auditory: { cx:175, cy:210, rx:50, ry:26, fill: activeRegions.includes('auditory') ? '#fbbf24' : '#fbbf2433', stroke: activeRegions.includes('auditory') ? '#fbbf24' : '#fbbf2433', label:'Auditory', ly:206, opacity: activeRegions.includes('auditory') ? 1 : 0.25 },
-  };
+  const A = k => activeRegions.includes(k);
+  // Region layout — temporal set in demo mode, the app's frontal set otherwise (unchanged for real accounts).
+  const specs = (typeof __DEMO__ !== 'undefined' && __DEMO__)
+    ? { hippocampus:{cx:180,cy:165,rx:44,ry:26,c:'#c084fc',label:'Hippocampus',ly:165,lead:true},
+        insula:{cx:200,cy:118,rx:32,ry:20,c:'#fbbf24',label:'Insula',ly:114},
+        amygdala:{cx:132,cy:172,rx:28,ry:18,c:'#f472b6',label:'Amygdala',ly:168},
+        temporal:{cx:252,cy:170,rx:44,ry:24,c:'#818cf8',label:'Sup. Temporal',ly:166},
+        sensory:{cx:305,cy:96,rx:30,ry:20,c:'#2dd4bf',label:'Sensory',ly:92} }
+    : { dlpfc:{cx:165,cy:100,rx:52,ry:32,c:'#c084fc',label:'DLPFC',ly:95,lead:true},
+        premotor:{cx:205,cy:72,rx:28,ry:18,c:'#f472b6',label:'Premotor',ly:68},
+        sma:{cx:248,cy:62,rx:38,ry:20,c:'#818cf8',label:'SMA',ly:58},
+        motor:{cx:290,cy:58,rx:30,ry:18,c:'#fb923c',label:'Motor',ly:54},
+        cingulate:{cx:128,cy:145,rx:30,ry:18,c:'#4ade80',label:'Cingulate',ly:141},
+        auditory:{cx:175,cy:210,rx:50,ry:26,c:'#fbbf24',label:'Auditory',ly:206} };
+  const regions = {};
+  Object.keys(specs).forEach(k => { const s = specs[k]; regions[k] = { cx:s.cx, cy:s.cy, rx:s.rx, ry:s.ry, fill: A(k)?s.c:s.c+'33', stroke: A(k)?s.c:s.c+'33', label:s.label, ly:s.ly, opacity: A(k)?1:(s.lead?0.3:0.25) }; });
 
   const ellipses = Object.entries(regions).map(([key, r]) => `
     <ellipse cx="${r.cx}" cy="${r.cy}" rx="${r.rx}" ry="${r.ry}"
@@ -3196,16 +3282,17 @@ function brainSVG(activeRegions, color) {
 
   // Spread arrows between active regions
   let arrows = '';
-  if(activeRegions.includes('dlpfc') && activeRegions.includes('premotor'))
-    arrows += `<line x1="190" y1="90" x2="198" y2="82" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>`;
-  if(activeRegions.includes('premotor') && activeRegions.includes('sma'))
-    arrows += `<line x1="225" y1="72" x2="236" y2="70" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>`;
-  if(activeRegions.includes('sma') && activeRegions.includes('motor'))
-    arrows += `<line x1="268" y1="62" x2="275" y2="61" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>`;
-  if(activeRegions.includes('dlpfc') && activeRegions.includes('cingulate'))
-    arrows += `<line x1="140" y1="115" x2="133" y2="133" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>`;
-  if(activeRegions.includes('dlpfc') && activeRegions.includes('auditory'))
-    arrows += `<line x1="155" y1="122" x2="162" y2="192" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>`;
+  const arrowLine = (a,b) => (A(a) && A(b) && regions[a] && regions[b])
+    ? `<line x1="${regions[a].cx}" y1="${regions[a].cy}" x2="${regions[b].cx}" y2="${regions[b].cy}" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>` : '';
+  if(typeof __DEMO__ !== 'undefined' && __DEMO__) {
+    arrows += arrowLine('hippocampus','insula') + arrowLine('hippocampus','amygdala') + arrowLine('hippocampus','temporal') + arrowLine('temporal','sensory');
+  } else {
+    if(A('dlpfc') && A('premotor')) arrows += `<line x1="190" y1="90" x2="198" y2="82" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>`;
+    if(A('premotor') && A('sma')) arrows += `<line x1="225" y1="72" x2="236" y2="70" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>`;
+    if(A('sma') && A('motor')) arrows += `<line x1="268" y1="62" x2="275" y2="61" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>`;
+    if(A('dlpfc') && A('cingulate')) arrows += `<line x1="140" y1="115" x2="133" y2="133" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>`;
+    if(A('dlpfc') && A('auditory')) arrows += `<line x1="155" y1="122" x2="162" y2="192" stroke="${color}88" stroke-width="1.5" stroke-dasharray="3,2"/>`;
+  }
 
   return `<svg viewBox="0 0 380 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:340px;">
     <defs>${glows}</defs>
@@ -3443,8 +3530,12 @@ function openBrainModal(idx) {
   document.getElementById('brainModalSubtitle').textContent = step.sub;
   document.getElementById('brainModalSVG').innerHTML = brainSVG(step.activeRegions, step.color);
   // Region badges
-  const names = { dlpfc:'DLPFC', premotor:'Premotor / FEF', sma:'SMA', motor:'Primary Motor Cortex', cingulate:'Ant. Cingulate', auditory:'Auditory Cortex' };
-  const cols  = { dlpfc:'#c084fc', premotor:'#f472b6', sma:'#818cf8', motor:'#fb923c', cingulate:'#4ade80', auditory:'#fbbf24' };
+  const names = (typeof __DEMO__ !== 'undefined' && __DEMO__)
+    ? { hippocampus:'Hippocampus', insula:'Insula', amygdala:'Amygdala', temporal:'Sup. Temporal', sensory:'Parietal Sensory' }
+    : { dlpfc:'DLPFC', premotor:'Premotor / FEF', sma:'SMA', motor:'Primary Motor Cortex', cingulate:'Ant. Cingulate', auditory:'Auditory Cortex' };
+  const cols  = (typeof __DEMO__ !== 'undefined' && __DEMO__)
+    ? { hippocampus:'#c084fc', insula:'#fbbf24', amygdala:'#f472b6', temporal:'#818cf8', sensory:'#2dd4bf' }
+    : { dlpfc:'#c084fc', premotor:'#f472b6', sma:'#818cf8', motor:'#fb923c', cingulate:'#4ade80', auditory:'#fbbf24' };
   document.getElementById('brainModalBadges').innerHTML = step.activeRegions.map(r =>
     `<span style="font-size:0.68rem;padding:3px 10px;border-radius:20px;background:${cols[r]}22;color:${cols[r]};border:1px solid ${cols[r]}44;">${names[r]||r}</span>`
   ).join('');
@@ -3719,11 +3810,188 @@ window.addEventListener('resize', ()=>{
   if(cycleTab.classList.contains('active')){ drawCycleChart(); drawSeverityChart(); }
 });
 
+// ============================================================
+// PUBLIC DEMO MODE — 100% fictional data, no account, no database.
+// Reuses the app's own render functions so it looks and behaves like
+// the real app. "Jordan Rivera" is invented — not a real person, and
+// completely separate from any real user's account or data.
+// ============================================================
+let __DEMO__ = false;
+const DEMO = {
+  cycleLength: 33,
+  episodes: [
+    { date:'2023-09-12', time:'08:15', env:'Neighborhood coffee shop, weekday morning', symptoms:'A wave of intense déjà vu, then a rising sensation in the stomach and brief confusion. Stared for about 30 seconds before it passed.', severity:'moderate', cycleday:'28', cycle_phase:'C1', emt:false, first_episode:true, notes:'The first one I connected to a pattern.' },
+    { date:'2023-10-03', time:'19:40', env:'Family dinner at a relative\'s house', symptoms:'Déjà vu followed by lip smacking and repetitive picking at a napkin; briefly unresponsive and did not answer when spoken to. Family noticed.', severity:'severe', cycleday:'2', cycle_phase:'MENS', emt:true, first_episode:false, notes:'EMTs assessed me at the house; everything checked out and I rested afterward.' },
+    { date:'2023-11-21', time:'14:05', env:'Public library, quiet study area', symptoms:'An odd metallic taste, then sudden difficulty understanding what a friend was saying — their words sounded scrambled for a minute.', severity:'moderate', cycleday:'25', cycle_phase:'C1', emt:false, first_episode:false, notes:'Heavy fatigue for the rest of the afternoon.' },
+    { date:'2024-01-15', time:'11:30', env:'Grocery store checkout line', symptoms:'Tingling spread up the right hand, then brief confusion and a blank pause. The cashier had to repeat the total.', severity:'mild', cycleday:'18', cycle_phase:'C2', emt:false, first_episode:false, notes:'Cleared within a few minutes.' },
+    { date:'2024-02-27', time:'06:50', env:'Airport terminal before an early flight', symptoms:'Strong rising stomach sensation and déjà vu, then disorientation on the way to the gate. A companion guided me to a seat.', severity:'modsevere', cycleday:'30', cycle_phase:'C1', emt:false, first_episode:false, notes:'Very little sleep the night before travel.' },
+    { date:'2024-04-09', time:'16:20', env:'Hiking trail, warm afternoon', symptoms:'Word-finding trouble and tingling in one hand mid-hike; had to stop and rest until it passed.', severity:'mild', cycleday:'22', cycle_phase:'C3', emt:false, first_episode:false, notes:'Heat and exertion seemed to play a role.' },
+    { date:'2024-05-30', time:'23:15', env:'Working from home, late-night deadline', symptoms:'Brief confusion and difficulty understanding an email while reading it; sound felt muffled. Followed by strong post-episode fatigue.', severity:'moderate', cycleday:'27', cycle_phase:'C1', emt:false, first_episode:false, notes:'A long stretch of poor sleep and stress.' },
+  ],
+  content: {
+    commonSymptoms: ['Blank stare','Cognitive slowing','Word-finding trouble','Head-turning tic','Sudden anxiety','Sound amplification','Legs heavy','Left-arm stiffening','Brief unresponsiveness','Disorientation','Memory gap'],
+    brainRegions: [
+      { id:'hippocampus', name:'Right Hippocampus', role:'⚡ Seizure Origin Zone', color:'#c084fc', desc:'In this sample profile the hippocampus is the origin. It drives memory encoding, so the earliest symptom is an intense wave of déjà vu and a sense of familiarity, sometimes with brief confusion.', symptoms:'Example symptoms: Déjà vu · Memory distortion · Brief confusion' },
+      { id:'insula', name:'Insular Cortex', role:'First Spread → Visceral Sensation', color:'#fbbf24', desc:'The insula processes internal body state and taste. Spread here produces the rising sensation in the stomach and the odd metallic taste that open many of these episodes.', symptoms:'Example symptoms: Rising stomach sensation · Metallic taste' },
+      { id:'amygdala', name:'Amygdala', role:'Emotional Spread', color:'#f472b6', desc:'Sitting just ahead of the hippocampus, the amygdala governs fear and emotional salience. Involvement produces the sudden unprovoked anxiety that sometimes accompanies the aura.', symptoms:'Example symptoms: Sudden fear · Anxiety surge' },
+      { id:'temporal', name:'Superior Temporal Cortex', role:'Language & Automatisms', color:'#818cf8', desc:'Lateral temporal spread disrupts language comprehension and releases automatic movements — the difficulty understanding speech, lip smacking, and repetitive hand movements seen during the unaware phase.', symptoms:'Example symptoms: Difficulty understanding speech · Lip smacking · Hand automatisms' },
+      { id:'sensory', name:'Parietal Sensory Cortex', role:'Sensory Spread', color:'#2dd4bf', desc:'When activity spreads back to the sensory cortex, it can produce tingling in one hand on the opposite side of the body.', symptoms:'Example symptoms: Tingling in one hand' },
+    ],
+    spreadSteps: [
+      { num:'1', color:'#c084fc', title:'Origin — Right Hippocampus', sub:'Aura onset', activeRegions:['hippocampus'], explanation:'Each episode begins in the right hippocampus with an intense wave of déjà vu and a sense of familiarity, sometimes with brief confusion.', note:'The consistent déjà-vu onset points to a single mesial-temporal origin.', episodes:'Seen at the start of most example episodes', symptoms:'Déjà vu · Brief confusion' },
+      { num:'2', color:'#fbbf24', title:'Spread → Insula & Amygdala', sub:'Visceral & emotional', activeRegions:['hippocampus','insula','amygdala'], explanation:'Activity spreads to the insula and amygdala, adding the rising stomach sensation, an odd metallic taste, and sometimes a surge of anxiety.', note:'Spread follows established mesial-temporal connections.', episodes:'Example: coffee shop and airport episodes', symptoms:'Rising stomach · Metallic taste · Anxiety' },
+      { num:'3', color:'#818cf8', title:'Spread → Superior Temporal & Sensory', sub:'Automatisms & sensory', activeRegions:['hippocampus','temporal','sensory'], explanation:'In more involved episodes, activity reaches the lateral temporal cortex — bringing difficulty understanding speech, lip smacking, and repetitive hand movements — and can spread to the sensory cortex, producing tingling in one hand.', note:'This was the most involved example pattern.', episodes:'Example: library and family-dinner episodes', symptoms:'Speech difficulty · Automatisms · Hand tingling' },
+    ],
+    envRisks: [
+      { icon:'🧘', name:'Hot Yoga / Overheating', accentColor:'#2dd4bf', episodes:'2 example episodes', duringSymptoms:['Cognitive slowing mid-class','Blank stare','Trouble following instructions'], afterSymptoms:['Lingering fatigue','Mild headache'], worstCase:'Example: an early-morning hot-studio class brought on the first noticed episode.', tip:'Heat and breath-holding can lower the seizure threshold. Keep cool, hydrate, and avoid breath-retention drills.' },
+      { icon:'🚇', name:'Crowded Transit', accentColor:'#818cf8', episodes:'1 example episode', duringSymptoms:['Word-finding trouble','Feeling detached','Missing stops'], afterSymptoms:['Slow recovery'], worstCase:'Example: a rush-hour subway platform triggered a moderate episode.', tip:'Sensory overload plus stress adds up. Travel off-peak when possible and give yourself a seat and space.' },
+      { icon:'🏢', name:'Open-Plan Office / Deadlines', accentColor:'#fb923c', episodes:'2 example episodes', duringSymptoms:['Blank stare','Unable to read slides','Brief unresponsiveness'], afterSymptoms:['Mental fog for hours'], worstCase:'🚨 Example: a high-stress deadline day produced the most advanced episode, with EMTs assessing on scene.', tip:'Cognitive overload directly stresses the origin zone. Build in quiet breaks and protect sleep during crunch weeks.' },
+      { icon:'🎵', name:'Loud Live Music', accentColor:'#ff4a4a', episodes:'1 example episode', duringSymptoms:['Sound amplification','Head-turning tic','Sudden anxiety'], afterSymptoms:['Exhaustion'], worstCase:'Example: a small, loud concert venue triggered a mod–severe episode.', tip:'Wear high-fidelity earplugs, stand toward the back, and confirm an exit plan before entering.' },
+    ],
+    protectiveMeasures: [
+      { icon:'😴', title:'Sleep Consistency', subtitle:'Strongest lifestyle lever', color:'#818cf8', evidenceLevel:'ev-strong', evidenceLabel:'Strong Evidence', body:'Consistent bed and wake times are the most reliable protective factor across focal epilepsies — even more than total hours.', relevance:'Example relevance: in this sample profile, the most severe episodes followed short or irregular sleep during busy weeks.', relevanceColor:'#818cf822', relevanceBorder:'#818cf844', dosage:'7–9 hours · consistent bed/wake times daily', studies:[{num:'1', title:'Sleep regularity and seizure risk (illustrative citation)', journal:'Example Journal · 2023', finding:'Regular sleep timing associated with fewer seizures beyond total sleep duration.', url:'https://pubmed.ncbi.nlm.nih.gov/'}] },
+      { icon:'🐟', title:'Omega-3 Fatty Acids', subtitle:'Anti-inflammatory support', color:'#2dd4bf', evidenceLevel:'ev-moderate', evidenceLabel:'Moderate Evidence', body:'Omega-3s (EPA/DHA) may raise the seizure threshold and reduce neuroinflammation; in some trials lower doses outperformed higher doses.', relevance:'Example relevance: a plausible complement given the inflammatory contribution to focal excitability.', relevanceColor:'#2dd4bf22', relevanceBorder:'#2dd4bf44', dosage:'~1,000 mg EPA+DHA daily', studies:[{num:'1', title:'Fish oil in drug-resistant epilepsy (illustrative citation)', journal:'Example Journal · 2014', finding:'Low-dose fish oil linked to reduced seizure frequency vs placebo.', url:'https://pubmed.ncbi.nlm.nih.gov/'}] },
+      { icon:'🧘', title:'Stress Regulation', subtitle:'Lowers a common trigger', color:'#c084fc', evidenceLevel:'ev-moderate', evidenceLabel:'Moderate Evidence', body:'Chronic stress lowers the seizure threshold. Regular stress-reduction routines reduce seizure frequency for many people.', relevance:'Example relevance: this sample profile\'s worst episode fell on a high-stress deadline day.', relevanceColor:'#c084fc22', relevanceBorder:'#c084fc44', dosage:'Daily practice · protect recovery during demanding stretches', studies:[{num:'1', title:'Stress and seizure frequency (illustrative citation)', journal:'Example Journal · 2022', finding:'Stress-reduction programs associated with reduced seizure frequency.', url:'https://pubmed.ncbi.nlm.nih.gov/'}] },
+    ],
+    researchArticles: [
+      { category:'Frontal Lobe Epilepsy', categoryColor:'#c084fc', icon:'🧠', title:'Overview of frontal lobe focal seizures (illustrative)', source:'Example Journal · 2021', tag:'Overview', tagColor:'#c084fc', whyRelevant:'Example: matches this sample profile\'s cognitive-onset, brief focal seizures with rapid spread.', keyFindings:['Frontal seizures are often brief with rapid spread','Cognitive and motor features are common','Sleep and stress are frequent modulators'], url:'https://pubmed.ncbi.nlm.nih.gov/' },
+      { category:'Catamenial Epilepsy', categoryColor:'#f472b6', icon:'🌙', title:'Perimenstrual (C1) seizure exacerbation (illustrative)', source:'Example Journal · 2020', tag:'Hormones', tagColor:'#f472b6', whyRelevant:'Example: this sample profile clusters episodes just before menstruation (a C1 pattern).', keyFindings:['C1 is the most common catamenial pattern','Rapid progesterone withdrawal reduces protective neurosteroids','Cycle tracking helps target higher-risk windows'], url:'https://pubmed.ncbi.nlm.nih.gov/' },
+      { category:'Lifestyle & Triggers', categoryColor:'#818cf8', icon:'😴', title:'Sleep, stress, and seizure risk (illustrative)', source:'Example Journal · 2023', tag:'Lifestyle', tagColor:'#818cf8', whyRelevant:'Example: sleep loss and high-stress weeks precede the more severe episodes in this profile.', keyFindings:['Irregular sleep raises next-day risk','Stress is a commonly reported trigger','Consistent routines are protective'], url:'https://pubmed.ncbi.nlm.nih.gov/' },
+    ],
+    cycleWindows: {
+      'Menstruation': { desc:'Example: hormones are low. In this sample profile most episodes cluster just before the period rather than during it.', advice:'Lower-risk window here. Keep sleep consistent and recover.' },
+      'Follicular Phase': { desc:'Example: estrogen is rising — generally a steadier window for this profile.', advice:'Moderate caution; maintain routine.' },
+      'Ovulation': { desc:'Example: estrogen peaks. Watch loud, high-stimulation environments around this time.', advice:'Moderate–high caution in loud venues.' },
+      'Luteal Phase': { desc:'Example: progesterone is elevated early, then declines toward the pre-period window.', advice:'Caution rises as the period approaches.' },
+      'Late Luteal Phase': { desc:'Example: the highest-risk window in this sample profile — most episodes fall in the days just before menstruation (a C1 catamenial pattern).', advice:'Maximum caution. Prioritize sleep and reduce stress.' },
+    },
+    riskDescriptions: {
+      'low': { description:'Example: few threshold-lowering factors are present — a relatively protected window for this sample profile.', tipList:['Stay hydrated','Keep a consistent sleep schedule','Note any early warning signs'] },
+      'moderate': { description:'Example: one or two factors are stacking. In this profile that can bring on cognitive slowing or a brief blank stare.', tipList:['Prioritize sleep tonight','Wear earplugs in loud settings','Tell someone nearby what to watch for'] },
+      'high': { description:'Example: several factors are stacking. This profile can progress to unresponsiveness with a head-turning tic.', tipList:['Reschedule demanding plans if you can','Avoid loud, crowded venues','Do not go alone','Take quiet breaks'] },
+      'very-high': { description:'Example: this closely matches the sample profile\'s most severe episode, which spread to motor involvement.', tipList:['Avoid high-risk settings today','Ensure someone is with you','Follow your seizure action plan','Contact your neurologist if episodes are increasing'] },
+    },
+  },
+};
+
+function startDemo() {
+  __DEMO__ = true;
+  document.getElementById('landingPage').style.display = 'none';
+  document.getElementById('authGate').style.display = 'none';
+  document.getElementById('demoBanner').style.display = 'flex';
+  cycleUnlocked = true; // demo bypasses the cycle passcode
+
+  // Personalized content from the fictional DEMO object (never the database)
+  APP = DEMO.content;
+  envRisks = APP.envRisks || [];
+  protectiveMeasures = APP.protectiveMeasures || [];
+  spreadSteps = APP.spreadSteps || [];
+  researchArticles = APP.researchArticles || [];
+  commonSymptoms = APP.commonSymptoms || [];
+  buildEnvRisks(); buildProtectiveMeasures(); buildSpreadPathway(); buildResearch(); renderBrainRegions();
+  // Swap the static frontal brain diagram for the demo's temporal one (real accounts keep the original)
+  var _bd = document.getElementById('brainDiagramSvg'); if(_bd) _bd.innerHTML = demoBrainDiagramInner();
+
+  // Cycle config — place "today" in the late-luteal window for a lively demo
+  CYCLE_LENGTH = DEMO.cycleLength;
+  var lp = new Date(); lp.setDate(lp.getDate() - 28); lp.setHours(12,0,0,0);
+  LAST_PERIOD = lp; window._sessionPeriodDate = lp; window._sessionPeriodLate = false;
+
+  // Episodes → log cards + chart arrays (mirrors the DB path, without any DB)
+  var grid = document.getElementById('episodeGrid'); if(grid) grid.innerHTML = '';
+  DEMO.episodes.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date);}).forEach(function(ep){ addEpisodeCard(ep, false); });
+  var cEl = document.getElementById('totalCount'); if(cEl) cEl.textContent = DEMO.episodes.length;
+  episodes = DEMO.episodes.map(function(r){
+    var iso = r.date, disp = iso, d = new Date(iso + 'T12:00:00');
+    if(!isNaN(d)) disp = d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+    return { date:disp, _iso:iso, day:(r.cycleday!==''&&r.cycleday!=null)?parseInt(r.cycleday,10):null, ctype:r.cycle_phase||null, severity:r.severity||'moderate', emt:!!r.emt, first:!!r.first_episode, symptoms:r.symptoms||'', env:r.env||'', notes:r.notes||'' };
+  });
+  episodes.sort(function(a,b){return new Date(a._iso||0)-new Date(b._iso||0);});
+  epDots = episodes.filter(function(e){return e.day!=null && !isNaN(e.day);}).map(function(e){return {day:e.day, sev:e.severity};});
+
+  // Read-only demo: hide the write actions (they cannot touch any account anyway)
+  var rec = document.querySelector('[onclick="openRecordModal()"]'); if(rec) rec.style.display = 'none';
+  var per = document.querySelector('[onclick="openPeriodModal()"]'); if(per) per.style.display = 'none';
+
+  if(typeof drawCycleChart === 'function') drawCycleChart();
+  if(typeof drawSeverityChart === 'function') drawSeverityChart();
+  if(typeof renderCycleStatus === 'function') renderCycleStatus();
+  setTimeout(filterEpisodes, 100);
+  window.scrollTo(0, 0);
+}
+
+function exitDemo() { location.reload(); }
+
+// Temporal-lobe brain diagram for the demo (mirrors the app's diagram style).
+function demoBrainDiagramInner() {
+  return `
+    <defs>
+      <radialGradient id="brainGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#1e1c30"/><stop offset="100%" stop-color="#0e0c1a"/>
+      </radialGradient>
+      <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <ellipse cx="260" cy="165" rx="200" ry="145" fill="url(#brainGrad)" stroke="#2a2845" stroke-width="1.5"/>
+    <path d="M 130 200 Q 150 250 230 258 Q 320 262 372 235 Q 392 220 380 200 Q 320 210 250 205 Q 190 200 130 200 Z" fill="#c084fc18" stroke="#c084fc44" stroke-width="1.2"/>
+
+    <ellipse cx="250" cy="150" rx="38" ry="22" fill="#fbbf2444" stroke="#fbbf24" stroke-width="1.5" filter="url(#glow)"/>
+    <text x="250" y="146" text-anchor="middle" fill="#fbbf24" font-family="Inter" font-size="7.5" font-weight="700">Insula</text>
+    <text x="250" y="158" text-anchor="middle" fill="#fbbf24aa" font-family="Inter" font-size="6">Rising stomach · taste</text>
+
+    <ellipse cx="176" cy="212" rx="32" ry="19" fill="#f472b644" stroke="#f472b6" stroke-width="1.5"/>
+    <text x="176" y="208" text-anchor="middle" fill="#f472b6" font-family="Inter" font-size="7" font-weight="700">Amygdala</text>
+    <text x="176" y="219" text-anchor="middle" fill="#f472b6aa" font-family="Inter" font-size="6">Fear / anxiety</text>
+
+    <ellipse cx="248" cy="226" rx="46" ry="26" fill="#c084fc44" stroke="#c084fc" stroke-width="2" filter="url(#glow)"/>
+    <text x="248" y="222" text-anchor="middle" fill="#c084fc" font-family="Inter" font-size="8" font-weight="700">Hippocampus</text>
+    <text x="248" y="234" text-anchor="middle" fill="#c084fcaa" font-family="Inter" font-size="6.5">ORIGIN ⚡ · Déjà vu</text>
+
+    <ellipse cx="336" cy="214" rx="48" ry="25" fill="#818cf844" stroke="#818cf8" stroke-width="1.5" filter="url(#glow)"/>
+    <text x="336" y="210" text-anchor="middle" fill="#818cf8" font-family="Inter" font-size="7.5" font-weight="700">Sup. Temporal</text>
+    <text x="336" y="221" text-anchor="middle" fill="#818cf8aa" font-family="Inter" font-size="6">Speech · automatisms</text>
+
+    <ellipse cx="386" cy="108" rx="42" ry="23" fill="#2dd4bf33" stroke="#2dd4bf88" stroke-width="1"/>
+    <text x="386" y="104" text-anchor="middle" fill="#2dd4bf" font-family="Inter" font-size="7.5" font-weight="700">Sensory Cortex</text>
+    <text x="386" y="116" text-anchor="middle" fill="#2dd4bfaa" font-family="Inter" font-size="6">Hand tingling</text>
+
+    <line x1="248" y1="205" x2="250" y2="172" stroke="#c084fc66" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <line x1="212" y1="222" x2="203" y2="216" stroke="#c084fc66" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <line x1="290" y1="222" x2="294" y2="217" stroke="#c084fc66" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <line x1="362" y1="194" x2="374" y2="130" stroke="#818cf866" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+    <rect x="378" y="160" width="150" height="120" rx="8" fill="#0e0c1aaa" stroke="#2a2845" stroke-width="1"/>
+    <text x="386" y="178" fill="#5a5480" font-family="Inter" font-size="7" font-weight="600">REGION LEGEND</text>
+    <rect x="386" y="188" width="8" height="8" rx="2" fill="#c084fc"/><text x="400" y="196" fill="#e8e4f8" font-family="Inter" font-size="8">Hippocampus — Origin</text>
+    <rect x="386" y="204" width="8" height="8" rx="2" fill="#fbbf24"/><text x="400" y="212" fill="#e8e4f8" font-family="Inter" font-size="8">Insula</text>
+    <rect x="386" y="220" width="8" height="8" rx="2" fill="#f472b6"/><text x="400" y="228" fill="#e8e4f8" font-family="Inter" font-size="8">Amygdala</text>
+    <rect x="386" y="236" width="8" height="8" rx="2" fill="#818cf8"/><text x="400" y="244" fill="#e8e4f8" font-family="Inter" font-size="8">Sup. Temporal</text>
+    <rect x="386" y="252" width="8" height="8" rx="2" fill="#2dd4bf"/><text x="400" y="260" fill="#e8e4f8" font-family="Inter" font-size="8">Sensory Cortex</text>
+
+    <text x="455" y="150" text-anchor="middle" fill="#3a3458" font-family="Inter" font-size="9" font-weight="600">RIGHT HEMISPHERE</text>
+    <text x="455" y="140" text-anchor="middle" fill="#2a2445" font-family="Inter" font-size="7">LATERAL VIEW</text>
+    <text x="110" y="120" fill="#3a3458" font-family="Inter" font-size="8">FRONTAL</text>
+    <text x="255" y="300" fill="#3a3458" font-family="Inter" font-size="8">TEMPORAL</text>
+    <text x="405" y="300" fill="#3a3458" font-family="Inter" font-size="8">OCCIPITAL</text>
+  `;
+}
+
+// Landing page controls (additive — reveal the existing login screen on request)
+function enterFromLanding() {
+  document.getElementById('landingPage').style.display = 'none';
+  document.getElementById('authGate').style.display = 'flex';
+  setTimeout(function(){ var el = document.getElementById('authEmail'); if(el) el.focus(); }, 60);
+}
+function tryDemoComingSoon() {
+  var n = document.getElementById('lpDemoNote'); if(n) n.style.display = 'block';
+}
+
 // Auth-gated boot: only load personal data once a session exists.
 async function boot() {
   const { data: { session } } = await sb.auth.getSession();
   if(session) {
     currentUser = session.user;
+    document.getElementById('landingPage').style.display = 'none';  // logged-in users skip the landing
     await onAuthed();
   } else {
     document.getElementById('authGate').style.display = 'flex';
