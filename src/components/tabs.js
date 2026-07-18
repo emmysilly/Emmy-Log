@@ -1,5 +1,7 @@
 import { html, useState } from '../ui.js';
 import * as api from '../supabase.js';
+import { CycleChart, SeverityChart } from '../charts.js';
+import { BrainDiagram } from '../brain.js';
 
 // ---------------- shared helpers ----------------
 const SEV = { severe: 'Severe', modsevere: 'Mod–Severe', moderate: 'Moderate', mild: 'Mild' };
@@ -195,6 +197,18 @@ export function CycleTracker({ episodes = [], content = {}, lastPeriodDate, cycl
       </div>
 
       <div class="card">
+        <div class="card-title">Hormones & episodes across the cycle</div>
+        <div class="card-sub">Estradiol, progesterone, LH and FSH over a ${cycleLength}-day cycle, with your episodes plotted by cycle day</div>
+        <${CycleChart} cycleLength=${cycleLength} episodes=${episodes} currentDay=${cd} />
+      </div>
+
+      <div class="card">
+        <div class="card-title">Severity over time</div>
+        <div class="card-sub">Each episode by severity, colored by catamenial phase</div>
+        <${SeverityChart} episodes=${episodes} />
+      </div>
+
+      <div class="card">
         <div class="card-title">Episodes by cycle phase</div>
         <div class="card-sub">How your documented episodes distribute across the cycle</div>
         ${(() => {
@@ -304,7 +318,12 @@ export function BrainTheory({ content = {}, isDemo }) {
       </div>
       ${regions.length === 0
         ? html`<${EmptyContent} isDemo=${isDemo} thing="brain-region notes" />`
-        : regions.map((r) => html`
+        : html`
+          <div class="card">
+            <div class="card-sub">Affected regions — tap a card below to highlight it on the map</div>
+            <${BrainDiagram} regions=${regions} activeId=${open} />
+          </div>
+          ${regions.map((r) => html`
           <div class="region-card" key=${r.id || r.name} style=${{ borderLeftColor: r.color || 'var(--accent)' }} onClick=${() => setOpen(open === (r.id || r.name) ? null : (r.id || r.name))}>
             <div class="region-name" style=${{ color: r.color }}>${r.name}</div>
             <div class="region-role">${r.role || ''}</div>
@@ -314,6 +333,7 @@ export function BrainTheory({ content = {}, isDemo }) {
                 ${r.symptoms && html`<div class="region-sym">${r.symptoms}</div>`}
               </div>`}
           </div>`)}
+        `}
     </div>`;
 }
 

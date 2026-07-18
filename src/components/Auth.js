@@ -34,7 +34,7 @@ export function AuthModal({ mode, onClose, onSwitch }) {
   return html`
     <div class="overlay" onClick=${(e) => { if (e.target.classList.contains('overlay')) onClose(); }}>
       <div class="modal">
-        <h2 class="brand"><span class="brand-a">Emmy</span> Log</h2>
+        <h2 class="brand"><span class="brand-a">Epilepsy</span> Log</h2>
         <div class="sub">${isSignup ? 'Create your private account' : 'Log in to your account'}</div>
         <form onSubmit=${submit}>
           ${isSignup && html`

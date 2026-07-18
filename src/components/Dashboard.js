@@ -46,7 +46,7 @@ export function Dashboard({ user, isDemo, demoState, onSignOut, onExit, onSignup
         </div>`}
 
       <div class="topbar">
-        <div class="title serif"><span class="brand-a" style=${{ color: 'var(--accent)', fontStyle: 'italic' }}>Emmy</span> Log
+        <div class="title serif"><span class="brand-a" style=${{ color: 'var(--accent)', fontStyle: 'italic' }}>Epilepsy</span> Log
           <span class="sub">Focal Epilepsy Documentation</span>
         </div>
         <div style=${{ display: 'flex', alignItems: 'center', gap: '10px' }}>

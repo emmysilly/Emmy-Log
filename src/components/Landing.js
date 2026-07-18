@@ -13,7 +13,7 @@ export function Landing({ onDemo, onLogin, onSignup }) {
   return html`
     <div class="landing">
       <div class="landing-hero">
-        <h1 class="brand"><span class="brand-a">Emmy</span> Log</h1>
+        <h1 class="brand"><span class="brand-a">Epilepsy</span> Log</h1>
         <p class="tag">A personal medical documentation tool for people with focal epilepsy — track episodes,
           identify triggers, map affected brain regions, and correlate symptoms with your menstrual cycle.</p>
         <div class="landing-cta">
@@ -45,7 +45,7 @@ export function Landing({ onDemo, onLogin, onSignup }) {
       </div>
 
       <div class="disclaimer">
-        <strong>Disclaimer:</strong> Emmy Log is a personal research and documentation tool only. It is
+        <strong>Disclaimer:</strong> Epilepsy Log is a personal research and documentation tool only. It is
         <strong>not</strong> a medical device, does not provide a diagnosis, and does not replace professional
         medical advice, diagnosis, or treatment. Always consult a qualified neurologist or healthcare provider
         about your symptoms and care. In an emergency, call your local emergency number.

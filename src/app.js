@@ -16,7 +16,7 @@ export function App() {
     return unsub;
   }, []);
 
-  if (session === undefined) return html`<div class="boot">Loading Emmy Log…</div>`;
+  if (session === undefined) return html`<div class="boot">Loading Epilepsy Log…</div>`;
 
   if (session) {
     return html`<${Dashboard} user=${session.user} isDemo=${false} onSignOut=${() => api.signOut()} />`;
