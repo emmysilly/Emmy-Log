@@ -4,7 +4,10 @@
     {
       "name": "emmy-log",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "5500"],
+      "runtimeArgs": [
+        "-c",
+        "import sys; sys.path=[p for p in sys.path if p and not p.startswith('.')]; import http.server,socketserver; socketserver.TCPServer.allow_reuse_address=True; h=http.server.SimpleHTTPRequestHandler; socketserver.TCPServer(('127.0.0.1',5500), lambda *a: h(*a, directory='/Users/emelychavez/Desktop/projects/Emmy-Log')).serve_forever()"
+      ],
       "port": 5500
     }
   ]
